@@ -4,11 +4,23 @@ import { ProductPage } from "./ProductPage";
 export class HomePage extends ProductPage {
   private readonly categoryType: Locator;
   private readonly productItem: Locator;
+  private readonly cartButton: Locator;
+  private readonly homeButton: Locator;
 
   constructor(page: Page) {
     super(page);
     this.categoryType = page.locator(".list-group-item");
     this.productItem = page.locator(".card-title");
+    this.cartButton = page.locator("#cartur");
+    this.homeButton = page.locator(".nav-link").getByText("Home");
+  }
+
+  async clickCartButton() {
+    await this.cartButton.click();
+  }
+
+  async clickHomeButton() {
+    await this.homeButton.click();
   }
 
   async selectProduct(category: string, product: string) {
@@ -23,9 +35,9 @@ export class HomePage extends ProductPage {
       await this.acceptAlertBox();
 
       await expect(this.getPage().locator("h2")).toHaveText(product.product);
-      await this.getPage().locator(".nav-link").getByText("Home").click();
+      await this.clickHomeButton();
     }
 
-    await this.getPage().locator("#cartur").click(); // Selector for Cart base Element - TODO: Move to POM
+    await this.clickCartButton();
   }
 }

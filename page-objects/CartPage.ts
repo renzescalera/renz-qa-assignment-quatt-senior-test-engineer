@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 
 export class CartPage {
   private readonly page: Page;
@@ -10,6 +10,8 @@ export class CartPage {
   private readonly yearField: Locator;
   private readonly purchaseButton: Locator;
   private readonly placeOrderButton: Locator;
+  private readonly productRows: Locator;
+  private readonly purchaseDialogBox: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,6 +23,8 @@ export class CartPage {
     this.yearField = page.locator("#year");
     this.purchaseButton = page.getByRole("button", { name: "Purchase" });
     this.placeOrderButton = page.getByRole("button", { name: "Place Order" });
+    this.productRows = page.locator("#tbodyid tr");
+    this.purchaseDialogBox = page.locator(".sweet-alert");
   }
 
   async fillPlaceOrderForm(object) {
@@ -34,11 +38,30 @@ export class CartPage {
     await this.yearField.fill(year);
   }
 
-  async clickPurchaseButton() {
-    await this.purchaseButton.click();
+  getPurchaseButton() {
+    return this.purchaseButton;
   }
 
-  async clickPlaceOrderButton() {
-    await this.placeOrderButton.click();
+  getPlaceOrderButton() {
+    return this.placeOrderButton;
+  }
+
+  async numberOfProductInCart() {
+    return await this.productRows.count();
+  }
+
+  async validateProductsInCart(productData) {
+    for (const product of productData) {
+      const productRow = await this.page.locator(`#tbodyid tr`, {
+        hasText: product.product,
+      });
+
+      // Assert that the row exists and contains the product name
+      await expect(productRow).toContainText(product.product);
+    }
+  }
+
+  getSuccessfulPurchaseDialogBox() {
+    return this.purchaseDialogBox;
   }
 }
