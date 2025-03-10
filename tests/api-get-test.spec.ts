@@ -46,10 +46,9 @@ test.describe("API - GET user operations", () => {
 
     expect(response.status()).toBe(200);
     expect(responseBody.id).toBe(newUserId);
-    expect(responseBody.name).toBe(newUserDataObject.name);
-    expect(responseBody.email).toBe(newUserDataObject.email);
-    expect(responseBody.gender).toBe(newUserDataObject.gender);
-    expect(responseBody.status).toBe(newUserDataObject.status);
+    pageObject
+      .apiRequest()
+      .validateResponseBodyOfSuccessfulCall(responseBody, newUserDataObject);
   });
 
   test("Should not be able to retrieve a user with invalid id", async ({

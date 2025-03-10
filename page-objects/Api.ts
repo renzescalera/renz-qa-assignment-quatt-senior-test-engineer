@@ -60,4 +60,18 @@ export class Api {
       ...overrides,
     };
   }
+
+  validateResponseBodyOfSuccessfulCall(actualObject, expectedObject) {
+    expect(actualObject.name).toBe(expectedObject.name);
+    expect(actualObject.email).toBe(expectedObject.email);
+    expect(actualObject.gender).toBe(expectedObject.gender);
+    expect(actualObject.status).toBe(expectedObject.status);
+  }
+
+  validateDataChanges(newDataObject, oldDataObject) {
+    expect(newDataObject.name).not.toBe(oldDataObject.name);
+    expect(newDataObject.email).not.toBe(oldDataObject.email);
+    expect(newDataObject.gender).not.toBe(oldDataObject.gender);
+    expect(newDataObject.status).not.toBe(oldDataObject.status);
+  }
 }

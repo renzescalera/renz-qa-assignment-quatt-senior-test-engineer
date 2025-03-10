@@ -16,10 +16,9 @@ test.describe("API - POST user operations", () => {
     const responseBody = await response.json();
 
     expect(response.status()).toBe(201);
-    expect(responseBody.name).toBe(newUserDataObject.name);
-    expect(responseBody.email).toBe(newUserDataObject.email);
-    expect(responseBody.gender).toBe(newUserDataObject.gender);
-    expect(responseBody.status).toBe(newUserDataObject.status);
+    pageObject
+      .apiRequest()
+      .validateResponseBodyOfSuccessfulCall(responseBody, newUserDataObject);
   });
 
   test("Should not create new user with incorrect email format input", async ({
