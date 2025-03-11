@@ -91,7 +91,7 @@ test.describe("Product Purchase Flow", () => {
   }) => {
     const pageObject = new PageIndex(page);
 
-    await pageObject.home().clickCartButton();
+    await pageObject.home().getHomeButton().click();
 
     const numberOfProductRow = await pageObject.cart().numberOfProductInCart();
     expect(numberOfProductRow).toBe(0);
@@ -104,5 +104,31 @@ test.describe("Product Purchase Flow", () => {
      * Commenting it out for the mean time
      */
     // await expect(pageObject.cart().getPlaceOrderButton()).toBeDisabled();
+  });
+
+  test("Should remove product in cart successfully", async ({ page }) => {
+    const pageObject = new PageIndex(page);
+
+    const productDataObject = [
+      {
+        category: "Phones",
+        product: "Samsung galaxy s6",
+        price: 360,
+      },
+      {
+        category: "Laptops",
+        product: "MacBook Pro",
+        price: 1100,
+      },
+    ];
+
+    await pageObject.home().addProductToCart(productDataObject);
+
+    await pageObject.cart().getDeleteButtons().first().click();
+
+    await page.waitForResponse("https://api.demoblaze.com/view");
+
+    const numberOfProductRow = await pageObject.cart().numberOfProductInCart();
+    await expect(numberOfProductRow).toBe(productDataObject.length - 1);
   });
 });

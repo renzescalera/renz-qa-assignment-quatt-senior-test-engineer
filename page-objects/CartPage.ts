@@ -12,6 +12,8 @@ export class CartPage {
   private readonly placeOrderButton: Locator;
   private readonly productRows: Locator;
   private readonly purchaseDialogBox: Locator;
+  private readonly deleteButtons: Locator;
+  private readonly cartTotalPrice: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -25,6 +27,8 @@ export class CartPage {
     this.placeOrderButton = page.getByRole("button", { name: "Place Order" });
     this.productRows = page.locator("#tbodyid tr");
     this.purchaseDialogBox = page.locator(".sweet-alert");
+    this.deleteButtons = page.getByRole("link", { name: "Delete" });
+    this.cartTotalPrice = page.locator("#totalp");
   }
 
   async fillPlaceOrderForm(object) {
@@ -44,6 +48,10 @@ export class CartPage {
 
   getPlaceOrderButton() {
     return this.placeOrderButton;
+  }
+
+  getDeleteButtons() {
+    return this.deleteButtons;
   }
 
   async numberOfProductInCart() {
