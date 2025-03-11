@@ -15,12 +15,12 @@ export class HomePage extends ProductPage {
     this.homeButton = page.locator(".nav-link").getByText("Home");
   }
 
-  async clickCartButton() {
-    await this.cartButton.click();
+  getCartButton() {
+    return this.cartButton;
   }
 
-  async clickHomeButton() {
-    await this.homeButton.click();
+  getHomeButton() {
+    return this.homeButton;
   }
 
   async selectProduct(category: string, product: string) {
@@ -35,9 +35,9 @@ export class HomePage extends ProductPage {
       await this.acceptAlertBox();
 
       await expect(this.getPage().locator("h2")).toHaveText(product.product);
-      await this.clickHomeButton();
+      await this.getHomeButton().click();
     }
 
-    await this.clickCartButton();
+    await this.getCartButton().click();
   }
 }
