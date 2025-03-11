@@ -25,7 +25,6 @@ test.describe("Product Purchase Flow", () => {
       {
         category: "Phones",
         product: "Samsung galaxy s6",
-        price: "360",
       },
     ];
 
@@ -55,17 +54,14 @@ test.describe("Product Purchase Flow", () => {
       {
         category: "Phones",
         product: "Samsung galaxy s6",
-        price: "360",
       },
       {
         category: "Laptops",
         product: "MacBook Pro",
-        price: "1100",
       },
       {
         category: "Monitors",
         product: "ASUS Full HD",
-        price: "230",
       },
     ];
 
@@ -113,12 +109,10 @@ test.describe("Product Purchase Flow", () => {
       {
         category: "Phones",
         product: "Samsung galaxy s6",
-        price: 360,
       },
       {
         category: "Laptops",
         product: "MacBook Pro",
-        price: 1100,
       },
     ];
 
